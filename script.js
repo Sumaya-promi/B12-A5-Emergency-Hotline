@@ -3,14 +3,24 @@
 
 const heartCount = document.getElementById('heart-count');
 const heartButtons = document.getElementsByClassName('heart-button');
-let count = 0;
+let heartClickCount = 0;
 for (const btn of heartButtons) {
     btn.addEventListener('click', function () {
-        count++;
-        heartCount.innerText = count;
+        heartClickCount++;
+        heartCount.innerText = heartClickCount;
     })
 }
 
+// Copy count
+const copyCount = document.getElementById('copy-count');
+const copyButtons = document.getElementsByClassName('copy-button');
+let copyClickCount = 0;
+for (const btn of copyButtons) {
+    btn.addEventListener('click', function () {
+        copyClickCount++;
+        copyCount.innerText = copyClickCount;
+    })
+}
 
 //Function for call button 
 function callSetup(id, nameId, numberId) {
@@ -53,16 +63,32 @@ function callSetup(id, nameId, numberId) {
 // Clear button functionality
 
 document.getElementById('clear-button')
-.addEventListener('click',function(){
-    const historyContainer = document.getElementById('history-container');
-    historyContainer.innerText ='';
-})
+    .addEventListener('click', function () {
+        const historyContainer = document.getElementById('history-container');
+        historyContainer.innerText = '';
+    })
 
+// Copy button functionality
+function copyButtonSetup(id) {
+    const number = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(number);
+    alert('Your copied number: ' + number);
 
+}
+const copyBtns = document.getElementsByClassName('copy-button');
+const allId = ['national-number', 'police-number', 'fire-number', 'ambulance-number', 'child-number', 'anti-corruption-number', 'electricity-number', 'brac-number', 'railway-number'];
+
+for (let i = 0; i < copyBtns.length; i++) {
+    const btn = copyBtns[i];
+    const id = allId[i];
+
+    btn.addEventListener('click', function () {
+        copyButtonSetup(id);
+    })
+}
 
 //National emergency
 callSetup('national-call', 'national-name', 'national-number');
-
 //Police service
 callSetup('police-call', 'police-name', 'police-number');
 // Fire service
